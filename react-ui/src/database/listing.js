@@ -39,7 +39,7 @@ export function createListingTable() {
 }
 
 /* adds a listing to the database */
-export function createListing({ name, price, createdByPk, createdByName, listingId, sentByName, sentByPk, walletAddress, createdAt, listing_image }) {
+export function createListing({ name, price, createdByPk, createdByName, listingId, sentByName, sentByPk, walletAddress, createdAt, listingImage }) {
     const randomId = Math.trunc(Math.random() * 10000000000000000);
     const id = `${randomId}${createdByPk}`;
     const timestamp = Math.floor(Date.now() / 1000);
@@ -66,7 +66,7 @@ export function createListing({ name, price, createdByPk, createdByName, listing
             '${price}',
             '${createdByPk}',
             '${createdByName}',
-            '${listing_image}',
+            '${listingImage}',
             ${sentByName ? `'${sentByName}',` : ''}
             ${sentByPk ? `'${sentByPk}',` : ''}
             '${walletAddress}',
