@@ -52,7 +52,7 @@ function ListingDetailSeller() {
                         <CardMedia
                             component="img"
                             width="100%"
-                            image={TestImage}
+                            image={listing.listing_image || TestImage}
                             alt="Test Image"
                         />
                         <CardContent>

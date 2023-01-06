@@ -27,6 +27,7 @@ export default function ListingCreate() {
   const [form, setForm] = useState({
     name: "",
     asking_price: "",
+    listing_image: {image: '', path: ''},
   });
   const [walletAddress, setWalletAddress] = useState("");
 
@@ -67,6 +68,7 @@ export default function ListingCreate() {
       createdByPk: host.pk,
       createdByName: host.name,
       walletAddress: walletAddress,
+      listing_image: newListing.listing_image.image,
     })
     .then(function(listingId) {
         console.log(`Listing successfully added: ${listingId}`);
@@ -80,7 +82,7 @@ export default function ListingCreate() {
         } else {
           console.log('Successfully sent listing to contacts');
           setLoading(false);
-          setForm({ name: "", asking_price: "" });
+          setForm({ name: "", asking_price: "", listing_image: {image: '', path: ''} });
           setSuccess(true);
         }
       }).catch((e) => {
@@ -93,6 +95,27 @@ export default function ListingCreate() {
   const handleGoHome = () => {
     navigate(-1);
   }
+
+  const imageSelected = (data) =>{
+    updateForm({listing_image: {path: data.target.value}})
+    let file = data.target.files[0] || null
+    if(!file) {
+      return;
+    }
+
+    fileToDataUri(file)
+        .then(dataUri => {
+          updateForm({listing_image: {image: dataUri}})
+    })
+  }
+
+  const fileToDataUri = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      resolve(event.target.result)
+    };
+    reader.readAsDataURL(file);
+  })
 
   if (walletAddress && host) {
     // This following section will display the form that takes the input from the user.
@@ -129,6 +152,22 @@ export default function ListingCreate() {
                 onChange={(e) => updateForm({ name: e.target.value })}
                 variant="outlined"
               />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel htmlFor="asking-price">Image *</InputLabel>
+                <OutlinedInput
+                  id="listing_image"
+                  type={"file"}
+                  value={form.listing_image.path}
+                  required="true"
+                  onChange={(e) => {imageSelected(e)}}
+                  label="Image"
+                  startAdornment={
+                    <InputAdornment position="end"></InputAdornment>
+                  }
+                />
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>

@@ -18,6 +18,7 @@ export function createListingTable() {
         "wallet_address" varchar(80) not null,
         "status" char(12) not null default 'available',
         "buyer_message" varchar(1000),
+        "listing_image" varchar(10000000),
         "buyer_name" char(50),
         "buyer_pk" varchar(330),
         "purchase_code" varchar(30),
@@ -38,7 +39,7 @@ export function createListingTable() {
 }
 
 /* adds a listing to the database */
-export function createListing({ name, price, createdByPk, createdByName, listingId, sentByName, sentByPk, walletAddress, createdAt }) {
+export function createListing({ name, price, createdByPk, createdByName, listingId, sentByName, sentByPk, walletAddress, createdAt, listing_image }) {
     const randomId = Math.trunc(Math.random() * 10000000000000000);
     const id = `${randomId}${createdByPk}`;
     const timestamp = Math.floor(Date.now() / 1000);
@@ -51,6 +52,7 @@ export function createListing({ name, price, createdByPk, createdByName, listing
             "price",
             "created_by_pk",
             "created_by_name",
+            "listing_image",
             ${sentByName ? '"sent_by_name",' : ''}
             ${sentByPk ? '"sent_by_pk",' : ''}
             "wallet_address",
@@ -64,6 +66,7 @@ export function createListing({ name, price, createdByPk, createdByName, listing
             '${price}',
             '${createdByPk}',
             '${createdByName}',
+            '${listing_image}',
             ${sentByName ? `'${sentByName}',` : ''}
             ${sentByPk ? `'${sentByPk}',` : ''}
             '${walletAddress}',
