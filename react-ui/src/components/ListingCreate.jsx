@@ -68,7 +68,7 @@ export default function ListingCreate() {
       createdByPk: host.pk,
       createdByName: host.name,
       walletAddress: walletAddress,
-      listing_image: newListing.listing_image.image,
+      listingImage: newListing.listing_image.image,
     })
     .then(function(listingId) {
         console.log(`Listing successfully added: ${listingId}`);
