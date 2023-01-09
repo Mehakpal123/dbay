@@ -20,8 +20,8 @@ function Listing(props) {
         }}
       >
         <ListItemAvatar>
-          {props.listing.image ? (
-            <Avatar alt={props.listing.name} src={props.listing.image} />
+          {props.listing.listing_image ? (
+            <Avatar alt={props.listing.name} src={props.listing.listing_image} />
           ) : (
             <Avatar>
               <BungalowIcon />
